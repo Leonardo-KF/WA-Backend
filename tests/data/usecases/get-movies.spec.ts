@@ -1,5 +1,5 @@
 import { HttpRequest } from "@/application/adapters/http-request";
-import { GetMovies } from "@/application/usecases/get-movies";
+import { GetMovies } from "@/domain/usecases/get-movies";
 import { Movie } from "@/domain/entities/movie.entity";
 import { MovieValidationPresentation } from "@/main/presentation/validation/movie-validation.presentation";
 import { HttpResponse } from "@/presentation/protocols/httpResponse";

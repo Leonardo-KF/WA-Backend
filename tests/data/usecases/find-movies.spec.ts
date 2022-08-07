@@ -1,7 +1,7 @@
-import { FindMovies } from "@/application/usecases/find-movies";
+import { FindMovies } from "@/domain/usecases/find-movies";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
 import { Movie } from "@/domain/entities/movie.entity";
-import { MoviesRepositorySpy } from "@/main/data/repositories/movies-in-memory.repository";
+import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
 
 class FindMoviesUseCase implements FindMovies {
   constructor(private readonly moviesRepository: IMoviesRepository) {}

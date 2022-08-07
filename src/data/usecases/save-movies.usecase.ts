@@ -1,4 +1,4 @@
-import { SaveMovies } from "@/application/usecases/save-movies";
+import { SaveMovies } from "@/domain/usecases/save-movies";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
 import { Movie } from "@/domain/entities/movie.entity";
 

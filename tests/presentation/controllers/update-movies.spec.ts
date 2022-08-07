@@ -1,10 +1,10 @@
 import { HttpRequest } from "@/application/adapters/http-request";
-import { MoviesRepositorySpy } from "@/main/data/repositories/movies-in-memory.repository";
+import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
 import { HttpResponse } from "../protocols/httpResponse";
 import { UpdateMoviesRoute } from "./update-movies";
 import { faker } from "@faker-js/faker";
-import { SaveMovies } from "@/application/usecases/save-movies";
-import { SaveMoviesUseCase } from "@/main/usecases/save-movies.usecase";
+import { SaveMovies } from "@/domain/usecases/save-movies";
+import { SaveMoviesUseCase } from "@/data/usecases/save-movies.usecase";
 
 class UpdateMoviesController implements UpdateMoviesRoute {
   constructor(
@@ -17,10 +17,8 @@ class UpdateMoviesController implements UpdateMoviesRoute {
     await this.saveMovieUseCase.save(movies.body);
 
     return {
-      statusCode: 200,
-      body: {
-        message: "success",
-      },
+      statusCode: movies.statusCode,
+      body: "",
     };
   }
 }
