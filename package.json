@@ -1,0 +1,23 @@
+{
+  "name": "wa-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leonardo-KF/WA-Backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Leonardo-KF/WA-Backend/issues"
+  },
+  "homepage": "https://github.com/Leonardo-KF/WA-Backend#readme",
+  "devDependencies": {
+    "@types/node": "^18.6.4",
+    "typescript": "^4.7.4"
+  }
+}
