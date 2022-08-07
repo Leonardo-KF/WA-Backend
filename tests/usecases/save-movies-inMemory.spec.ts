@@ -14,6 +14,9 @@ class SaveMoviesUseCase implements SaveMovies {
 
 class MoviesRepository implements IMoviesRepository {
   movies: Movie[] = [];
+  findMovies(skip: number, limit: number): Promise<Movie[]> {
+    throw new Error("Method not implemented.");
+  }
 
   async saveMovie(movie: Movie): Promise<void> {
     this.movies.push(movie);
