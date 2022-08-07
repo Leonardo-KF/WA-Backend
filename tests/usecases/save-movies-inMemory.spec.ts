@@ -1,5 +1,6 @@
-import { Movie } from "../../entities/movie.entity";
-import { SaveMovies } from "../../usecases/save-movies";
+import { Movie } from "../../src/domain/entities/movie.entity";
+import { SaveMovies } from "../../src/application/usecases/save-movies";
+import { IMoviesRepository } from "../../src/data/repositories/movies.repository";
 
 class SaveMoviesUseCase implements SaveMovies {
   constructor(private readonly repository: IMoviesRepository) {}
@@ -9,10 +10,6 @@ class SaveMoviesUseCase implements SaveMovies {
       await this.repository.saveMovie(movie);
     });
   }
-}
-
-interface IMoviesRepository {
-  saveMovie(movie: Movie): Promise<void>;
 }
 
 class MoviesRepository implements IMoviesRepository {
@@ -26,7 +23,7 @@ class MoviesRepository implements IMoviesRepository {
 describe("SaveMoviesUseCase", () => {
   it("should save a movie list", async () => {
     const moviesRepository = new MoviesRepository();
-    const saveMoviesUseCase = new SaveMoviesUseCase(moviesRepository);
+    const sut = new SaveMoviesUseCase(moviesRepository);
 
     const movies = [
       {
@@ -46,7 +43,7 @@ describe("SaveMoviesUseCase", () => {
         producer: "test2",
       },
     ];
-    await saveMoviesUseCase.save(movies);
+    await sut.save(movies);
 
     expect(moviesRepository.movies).toContain(movies[0]);
     expect(moviesRepository.movies).toContain(movies[1]);
