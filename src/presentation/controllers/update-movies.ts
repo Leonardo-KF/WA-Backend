@@ -1,5 +1,5 @@
 import { HttpResponse } from "../protocols/httpResponse";
 
-export interface SaveMovies {
+export interface UpdateMoviesRoute {
   route(): Promise<HttpResponse>;
 }

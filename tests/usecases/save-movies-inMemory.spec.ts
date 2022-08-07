@@ -1,6 +1,7 @@
 import { SaveMovies } from "@/application/usecases/save-movies";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
 import { Movie } from "@/domain/entities/movie.entity";
+import { MoviesRepositorySpy } from "@/main/data/repositories/movies-in-memory.repository";
 
 class SaveMoviesUseCase implements SaveMovies {
   constructor(private readonly repository: IMoviesRepository) {}
@@ -12,20 +13,9 @@ class SaveMoviesUseCase implements SaveMovies {
   }
 }
 
-class MoviesRepository implements IMoviesRepository {
-  movies: Movie[] = [];
-  findMovies(skip: number, limit: number): Promise<Movie[]> {
-    throw new Error("Method not implemented.");
-  }
-
-  async saveMovie(movie: Movie): Promise<void> {
-    this.movies.push(movie);
-  }
-}
-
 describe("SaveMoviesUseCase", () => {
   it("should save a movie list", async () => {
-    const moviesRepository = new MoviesRepository();
+    const moviesRepository = new MoviesRepositorySpy();
     const sut = new SaveMoviesUseCase(moviesRepository);
 
     const movies = [

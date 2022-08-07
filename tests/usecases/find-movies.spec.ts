@@ -1,19 +1,7 @@
 import { FindMovies } from "@/application/usecases/find-movies";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
 import { Movie } from "@/domain/entities/movie.entity";
-
-class MoviesRepositorySpy implements IMoviesRepository {
-  movies: Movie[] = [];
-
-  findMovies(skip: number, limit: number): Promise<Movie[]> {
-    const findedMovies = this.movies.slice(skip, limit);
-    return Promise.resolve(findedMovies);
-  }
-
-  saveMovie(movie: Movie): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
-}
+import { MoviesRepositorySpy } from "@/main/data/repositories/movies-in-memory.repository";
 
 class FindMoviesUseCase implements FindMovies {
   constructor(private readonly moviesRepository: IMoviesRepository) {}
@@ -31,7 +19,7 @@ class FindMoviesUseCase implements FindMovies {
 
 const MakeSut = (): {
   sut: FindMovies;
-  moviesRepositorySpy: MoviesRepositorySpy;
+  moviesRepositorySpy: IMoviesRepository;
 } => {
   const moviesRepositorySpy = new MoviesRepositorySpy();
   moviesRepositorySpy.movies = [
