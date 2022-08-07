@@ -1,6 +1,6 @@
-import { Movie } from "../../src/domain/entities/movie.entity";
-import { SaveMovies } from "../../src/application/usecases/save-movies";
-import { IMoviesRepository } from "../../src/data/repositories/movies.repository";
+import { SaveMovies } from "@/application/usecases/save-movies";
+import { IMoviesRepository } from "@/data/repositories/movies.repository";
+import { Movie } from "@/domain/entities/movie.entity";
 
 class SaveMoviesUseCase implements SaveMovies {
   constructor(private readonly repository: IMoviesRepository) {}
