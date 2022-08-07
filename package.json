@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/Leonardo-KF/WA-Backend#readme",
   "devDependencies": {
+    "@types/jest": "^28.1.6",
     "@types/node": "^18.6.4",
+    "jest": "^28.1.3",
+    "ts-jest": "^28.0.7",
     "typescript": "^4.7.4"
   }
 }
