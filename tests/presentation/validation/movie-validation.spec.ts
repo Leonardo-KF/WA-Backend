@@ -1,22 +1,4 @@
-import { Movie } from "@/domain/entities/movie.entity";
-import { MovieValidation } from "./movie-validation";
-
-class MovieValidationPresentation implements MovieValidation {
-  async validate(movie: Movie): Promise<Movie> {
-    if (
-      !movie.id ||
-      !movie.title ||
-      !movie.banner ||
-      !movie.description ||
-      !movie.director ||
-      !movie.producer
-    ) {
-      throw new Error("Movie is invalid");
-    }
-
-    return movie;
-  }
-}
+import { MovieValidationPresentation } from "@/main/presentation/validation/movie-validation.presentation";
 
 describe("MovieValidation", () => {
   it("should return a movie if it is valid", async () => {

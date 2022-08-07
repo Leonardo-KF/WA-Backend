@@ -2,9 +2,13 @@ import { HttpRequest } from "@/application/adapters/http-request";
 import { GetMovies } from "@/application/usecases/get-movies";
 import { Movie } from "@/domain/entities/movie.entity";
 import { HttpResponse } from "@/presentation/protocols/httpResponse";
+import { MovieValidation } from "@/presentation/validation/movie-validation";
 
 class GetMoviesUseCase implements GetMovies {
-  constructor(private readonly httpRequest: HttpRequest) {}
+  constructor(
+    private readonly httpRequest: HttpRequest,
+    private readonly validation: MovieValidation
+  ) {}
   async getMovies(): Promise<Movie[]> {
     const httpResponse = await this.httpRequest.get("any_url");
     const movies = [];
@@ -17,6 +21,7 @@ class GetMoviesUseCase implements GetMovies {
         director: movie.director,
         producer: movie.producer,
       };
+      this.validation.validate(movieAdapt);
       movies.push(movieAdapt);
     });
     return movies;

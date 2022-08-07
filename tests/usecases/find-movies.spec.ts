@@ -1,6 +1,6 @@
-import { FindMovies } from "@/src/application/usecases/find-movies";
-import { Movie } from "@/src/domain/entities/movie.entity";
-import { IMoviesRepository } from "../../src/data/repositories/movies.repository";
+import { FindMovies } from "@/application/usecases/find-movies";
+import { IMoviesRepository } from "@/data/repositories/movies.repository";
+import { Movie } from "@/domain/entities/movie.entity";
 
 class MoviesRepositorySpy implements IMoviesRepository {
   movies: Movie[] = [];
