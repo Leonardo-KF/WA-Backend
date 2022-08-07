@@ -1,6 +1,7 @@
 import { HttpRequest } from "@/application/adapters/http-request";
 import { GetMovies } from "@/application/usecases/get-movies";
 import { Movie } from "@/domain/entities/movie.entity";
+import { MovieValidationPresentation } from "@/main/presentation/validation/movie-validation.presentation";
 import { HttpResponse } from "@/presentation/protocols/httpResponse";
 import { MovieValidation } from "@/presentation/validation/movie-validation";
 
@@ -264,7 +265,8 @@ class HttpRequestAdapter implements HttpRequest {
 describe("getMoviesUseCase", () => {
   it("should return a movie list", async () => {
     const request = new HttpRequestAdapter();
-    const getMoviesUseCase = new GetMoviesUseCase(request);
+    const validation = new MovieValidationPresentation();
+    const getMoviesUseCase = new GetMoviesUseCase(request, validation);
 
     const movies = await getMoviesUseCase.getMovies();
 
