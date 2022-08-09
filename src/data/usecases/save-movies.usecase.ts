@@ -10,17 +10,21 @@ export class SaveMoviesUseCase implements SaveMovies {
   ) {}
 
   async save(movies: MovieModel[]): Promise<MovieModel[]> {
-    const newMovies: MovieModel[] = [];
-    await movies.map(async (movie) => {
-      await this.movieValidation.validate(movie);
-      let savedMovie: MovieModel;
-      savedMovie = await this.repository.findAndUpdateMovie(movie);
-      if (!savedMovie) {
-        console.log("movie create");
-        savedMovie = await this.repository.saveMovie(movie);
-      }
-      newMovies.push(savedMovie);
-    });
-    return newMovies;
+    try {
+      const newMovies: MovieModel[] = [];
+      await movies.map(async (movie) => {
+        await this.movieValidation.validate(movie);
+        let savedMovie: MovieModel;
+        savedMovie = await this.repository.findAndUpdateMovie(movie);
+        if (!savedMovie) {
+          savedMovie = await this.repository.saveMovie(movie);
+        }
+        newMovies.push(savedMovie);
+      });
+      return newMovies;
+    } catch (error) {
+      console.log("Rodou erro");
+      throw new Error(error.message);
+    }
   }
 }

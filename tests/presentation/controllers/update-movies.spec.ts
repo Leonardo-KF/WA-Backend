@@ -17,7 +17,6 @@ class UpdateMoviesController implements UpdateMoviesRoute {
     try {
       const movies = await this.httpRequest.get("any_url");
       const savedMovies = await this.saveMovieUseCase.save(movies.body);
-
       return {
         statusCode: movies.statusCode,
         body: savedMovies,

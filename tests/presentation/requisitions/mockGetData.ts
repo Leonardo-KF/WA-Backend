@@ -5,7 +5,6 @@ import { faker } from "@faker-js/faker";
 export class MockGetRequest implements HttpRequest {
   movies = [];
   async get(url: string): Promise<HttpResponse> {
-    const newMovies = [];
     for (let i = 0; i < 20; i++) {
       const movie = {
         id: faker.random.alphaNumeric(10),
@@ -15,13 +14,12 @@ export class MockGetRequest implements HttpRequest {
         director: faker.name.firstName(),
         producer: faker.name.firstName(),
       };
-      newMovies.push(movie);
+      this.movies.push(movie);
     }
 
-    this.movies = newMovies;
     return {
       statusCode: 200,
-      body: newMovies,
+      body: this.movies,
     };
   }
 }
