@@ -1,21 +1,7 @@
 import { FindMovies } from "@/domain/usecases/find-movies";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
-import { MovieModel } from "@/data/models/movie-model";
-
-class FindMoviesUseCase implements FindMovies {
-  constructor(private readonly moviesRepository: IMoviesRepository) {}
-  async execution(page: number, limit: number): Promise<MovieModel[]> {
-    const skipping = (page - 1) * limit;
-
-    const lastIndex = skipping + limit;
-    const findedMovies = await this.moviesRepository.findMovies(
-      skipping,
-      lastIndex
-    );
-    return findedMovies;
-  }
-}
+import { FindMoviesUseCase } from "@/data/usecases/find-movies.usecase";
 
 const MakeSut = (): {
   sut: FindMovies;

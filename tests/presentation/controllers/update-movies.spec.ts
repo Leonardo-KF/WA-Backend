@@ -1,11 +1,11 @@
 import { HttpRequest } from "@/data/adapters/http-request";
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
-import { HttpResponse } from "../protocols/httpResponse";
-import { faker } from "@faker-js/faker";
+import { HttpResponse } from "@/presentation/protocols/httpResponse";
 import { SaveMovies } from "@/domain/usecases/save-movies";
 import { SaveMoviesUseCase } from "@/data/usecases/save-movies.usecase";
-import { UpdateMoviesRoute } from "./update-movies";
+import { UpdateMoviesRoute } from "@/presentation/controllers/update-movies";
 import { MovieValidation } from "@/data/validation/movie-validation";
+import { MockGetRequest } from "../requisitions/mockGetData";
 
 class UpdateMoviesController implements UpdateMoviesRoute {
   constructor(
@@ -14,47 +14,32 @@ class UpdateMoviesController implements UpdateMoviesRoute {
   ) {}
 
   async route(): Promise<HttpResponse> {
-    const movies = await this.httpRequest.get("any_url");
-    await this.saveMovieUseCase.save(movies.body);
+    try {
+      const movies = await this.httpRequest.get("any_url");
+      const savedMovies = await this.saveMovieUseCase.save(movies.body);
 
-    return {
-      statusCode: movies.statusCode,
-      body: "",
-    };
-  }
-}
-
-class Request implements HttpRequest {
-  movies = [];
-  async get(url: string): Promise<HttpResponse> {
-    const newMovies = [];
-    for (let i = 0; i < 20; i++) {
-      const movie = {
-        id: faker.random.alphaNumeric(10),
-        title: faker.name.jobTitle(),
-        banner: faker.image.imageUrl(),
-        description: faker.lorem.paragraph(),
-        director: faker.name.firstName(),
-        producer: faker.name.firstName(),
+      return {
+        statusCode: movies.statusCode,
+        body: savedMovies,
       };
-      newMovies.push(movie);
+    } catch (error) {
+      return {
+        statusCode: 400,
+        body: {
+          message: error.message,
+        },
+      };
     }
-
-    this.movies = newMovies;
-    return {
-      statusCode: 200,
-      body: newMovies,
-    };
   }
 }
 
 const MakeSut = (): {
   sut: UpdateMoviesController;
   moviesRepository: MoviesRepositorySpy;
-  request: Request;
+  request: MockGetRequest;
 } => {
   const moviesRepository = new MoviesRepositorySpy();
-  const request = new Request();
+  const request = new MockGetRequest();
   const movieValidation = new MovieValidation();
   const saveMovieUseCase = new SaveMoviesUseCase(
     moviesRepository,
