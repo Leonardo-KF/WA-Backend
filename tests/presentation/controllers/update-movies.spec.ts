@@ -1,36 +1,8 @@
-import { HttpRequest } from "@/data/adapters/http-request";
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
-import { HttpResponse } from "@/presentation/protocols/httpResponse";
-import { SaveMovies } from "@/domain/usecases/save-movies";
 import { SaveMoviesUseCase } from "@/data/usecases/save-movies.usecase";
-import { UpdateMoviesRoute } from "@/presentation/controllers/update-movies";
 import { MovieValidation } from "@/data/validation/movie-validation";
 import { MockGetRequest } from "../requisitions/mockGetData";
-
-class UpdateMoviesController implements UpdateMoviesRoute {
-  constructor(
-    private readonly httpRequest: HttpRequest,
-    private readonly saveMovieUseCase: SaveMovies
-  ) {}
-
-  async route(): Promise<HttpResponse> {
-    try {
-      const movies = await this.httpRequest.get("any_url");
-      const savedMovies = await this.saveMovieUseCase.save(movies.body);
-      return {
-        statusCode: movies.statusCode,
-        body: savedMovies,
-      };
-    } catch (error) {
-      return {
-        statusCode: 400,
-        body: {
-          message: error.message,
-        },
-      };
-    }
-  }
-}
+import { UpdateMoviesController } from "@/main/presentation/controllers/update-movies-controller";
 
 const MakeSut = (): {
   sut: UpdateMoviesController;

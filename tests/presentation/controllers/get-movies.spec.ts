@@ -1,23 +1,8 @@
 import { FindMovies } from "@/domain/usecases/find-movies";
-import { GetMoviesRoute } from "@/presentation/controllers/get-movies";
-import { HttpRequest } from "@/presentation/protocols/httpRequest";
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
-import { HttpResponse } from "../protocols/httpResponse";
 import { FindMoviesUseCase } from "@/data/usecases/find-movies.usecase";
 import { faker } from "@faker-js/faker";
-
-class GetMoviesController implements GetMoviesRoute {
-  constructor(private readonly findMoviesUseCase: FindMovies) {}
-
-  async route(req: HttpRequest): Promise<HttpResponse> {
-    const page = parseInt(req.params);
-    const movies = await this.findMoviesUseCase.execution(page, 10);
-    return {
-      statusCode: 200,
-      body: movies,
-    };
-  }
-}
+import { GetMoviesController } from "@/main/presentation/controllers/get-movies-controller";
 
 const MakeSut = (): {
   sut: GetMoviesController;
