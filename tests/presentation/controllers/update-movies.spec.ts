@@ -5,6 +5,7 @@ import { faker } from "@faker-js/faker";
 import { SaveMovies } from "@/domain/usecases/save-movies";
 import { SaveMoviesUseCase } from "@/data/usecases/save-movies.usecase";
 import { UpdateMoviesRoute } from "./update-movies";
+import { MovieValidation } from "@/data/validation/movie-validation";
 
 class UpdateMoviesController implements UpdateMoviesRoute {
   constructor(
@@ -54,7 +55,11 @@ const MakeSut = (): {
 } => {
   const moviesRepository = new MoviesRepositorySpy();
   const request = new Request();
-  const saveMovieUseCase = new SaveMoviesUseCase(moviesRepository);
+  const movieValidation = new MovieValidation();
+  const saveMovieUseCase = new SaveMoviesUseCase(
+    moviesRepository,
+    movieValidation
+  );
   const sut = new UpdateMoviesController(request, saveMovieUseCase);
 
   return {

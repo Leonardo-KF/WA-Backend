@@ -1,25 +1,6 @@
-import { SaveMovies } from "@/domain/usecases/save-movies";
-import { IMovieValidation } from "@/domain/validation/movie-validation";
-import { IMoviesRepository } from "@/data/repositories/movies.repository";
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
-import { MovieModel } from "@/data/models/movie-model";
 import { MovieValidation } from "@/data/validation/movie-validation";
-class SaveMoviesUseCase implements SaveMovies {
-  constructor(
-    private readonly repository: IMoviesRepository,
-    private readonly movieValidation: IMovieValidation
-  ) {}
-
-  async save(movies: MovieModel[]): Promise<void> {
-    movies.map(async (movie) => {
-      await this.movieValidation.validate(movie);
-      const movieUpdated = await this.repository.findAndUpdateMovie(movie);
-      if (!movieUpdated) {
-        await this.repository.saveMovie(movie);
-      }
-    });
-  }
-}
+import { SaveMoviesUseCase } from "@/data/usecases/save-movies.usecase";
 
 const MakeSut = (): {
   sut: SaveMoviesUseCase;
@@ -36,9 +17,7 @@ const MakeSut = (): {
 
 describe("SaveMoviesUseCase", () => {
   it("should save a movie list", async () => {
-    const moviesRepositorySpy = new MoviesRepositorySpy();
-    const movieValidation = new MovieValidation();
-    const sut = new SaveMoviesUseCase(moviesRepositorySpy, movieValidation);
+    const { sut, moviesRepositorySpy } = MakeSut();
 
     const movies = [
       {
@@ -58,8 +37,9 @@ describe("SaveMoviesUseCase", () => {
         producer: "test2",
       },
     ];
-    await sut.save(movies);
-    console.log(moviesRepositorySpy.movies);
+    const newMovies = await sut.save(movies);
+
+    console.log("repository", newMovies);
 
     expect(moviesRepositorySpy.movies).toContainEqual(movies[0]);
     expect(moviesRepositorySpy.movies).toContainEqual(movies[1]);
