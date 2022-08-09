@@ -1,4 +1,4 @@
-import { FindMovies } from "@/domain/usecases/find-movies";
+import { FindMovies } from "../../domain/usecases/find-movies";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
 import { MovieModel } from "@/data/models/movie-model";
 

@@ -7,7 +7,16 @@ export class GetRequest implements HttpRequest {
     const movies = await axios.get(url);
     return {
       statusCode: movies.status,
-      body: movies.data,
+      body: movies.data.map((movie) => {
+        return {
+          id: movie.id,
+          title: movie.title,
+          banner: movie.movie_banner,
+          description: movie.description,
+          director: movie.director,
+          producer: movie.producer,
+        };
+      }),
     };
   }
 }

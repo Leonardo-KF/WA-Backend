@@ -1,7 +1,7 @@
 import { FindMovies } from "@/domain/usecases/find-movies";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
-import { FindMoviesUseCase } from "@/data/usecases/find-movies.usecase";
+import { FindMoviesUseCase } from "@/data/usecases/find-movies";
 
 const MakeSut = (): {
   sut: FindMovies;

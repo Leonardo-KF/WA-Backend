@@ -1,6 +1,6 @@
 import { FindMovies } from "@/domain/usecases/find-movies";
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
-import { FindMoviesUseCase } from "@/data/usecases/find-movies.usecase";
+import { FindMoviesUseCase } from "@/data/usecases/find-movies";
 import { faker } from "@faker-js/faker";
 import { GetMoviesController } from "@/main/presentation/controllers/get-movies-controller";
 

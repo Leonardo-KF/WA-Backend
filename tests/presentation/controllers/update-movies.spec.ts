@@ -1,5 +1,5 @@
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
-import { SaveMoviesUseCase } from "@/data/usecases/save-movies.usecase";
+import { SaveMoviesUseCase } from "@/data/usecases/save-movies";
 import { MovieValidation } from "@/data/validation/movie-validation";
 import { MockGetRequest } from "../requisitions/mockGetData";
 import { UpdateMoviesController } from "@/main/presentation/controllers/update-movies-controller";

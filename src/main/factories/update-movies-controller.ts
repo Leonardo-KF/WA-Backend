@@ -1,12 +1,12 @@
-import { SaveMoviesUseCase } from "@/data/usecases/save-movies.usecase";
+import { SaveMoviesUseCase } from "@/data/usecases/save-movies";
 import { MovieValidation } from "@/data/validation/movie-validation";
+import { MoviesRepositoryInMemory } from "@/infra/repositories/movies-repository-in-memory";
 import { Controller } from "@/presentation/controllers/Controller";
-import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
 import { UpdateMoviesController } from "../presentation/controllers/update-movies-controller";
 import { GetRequest } from "../presentation/external/get-movies";
 
 export const makeUpdateMoviesController = (): Controller => {
-  const moviesRepository = new MoviesRepositorySpy();
+  const moviesRepository = new MoviesRepositoryInMemory();
   const movieValidation = new MovieValidation();
   const saveMoviesUseCase = new SaveMoviesUseCase(
     moviesRepository,
