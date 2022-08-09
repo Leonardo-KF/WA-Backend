@@ -1,7 +1,7 @@
 import { Movie } from "@/domain/entities/movie.entity";
-import { MovieValidation } from "@/presentation/validation/movie-validation";
+import { IMovieValidation } from "@/domain/validation/movie-validation";
 
-export class MovieValidationPresentation implements MovieValidation {
+export class MovieValidation implements IMovieValidation {
   async validate(movie: Movie): Promise<Movie> {
     if (
       !movie.id ||

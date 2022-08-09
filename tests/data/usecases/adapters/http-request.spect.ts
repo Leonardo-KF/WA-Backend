@@ -1,4 +1,4 @@
-import { HttpRequest } from "@/application/adapters/http-request";
+import { HttpRequest } from "@/data/adapters/http-request";
 import { HttpResponse } from "@/presentation/protocols/httpResponse";
 
 class HttpRequestAdapter implements HttpRequest {

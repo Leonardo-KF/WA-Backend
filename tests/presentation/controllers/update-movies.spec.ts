@@ -1,10 +1,10 @@
-import { HttpRequest } from "@/application/adapters/http-request";
+import { HttpRequest } from "@/data/adapters/http-request";
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
 import { HttpResponse } from "../protocols/httpResponse";
-import { UpdateMoviesRoute } from "./update-movies";
 import { faker } from "@faker-js/faker";
 import { SaveMovies } from "@/domain/usecases/save-movies";
 import { SaveMoviesUseCase } from "@/data/usecases/save-movies.usecase";
+import { UpdateMoviesRoute } from "./update-movies";
 
 class UpdateMoviesController implements UpdateMoviesRoute {
   constructor(

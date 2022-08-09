@@ -1,5 +1,4 @@
-import { MovieValidationPresentation } from "@/main/presentation/validation/movie-validation.presentation";
-
+import { MovieValidation } from "@/data/validation/movie-validation";
 describe("MovieValidation", () => {
   it("should return a movie if it is valid", async () => {
     const movie = {
@@ -10,7 +9,7 @@ describe("MovieValidation", () => {
       director: "teste",
       producer: "teste",
     };
-    const sut = new MovieValidationPresentation();
+    const sut = new MovieValidation();
     const validation = await sut.validate(movie);
     expect(validation).toBe(movie);
   });
@@ -23,7 +22,7 @@ describe("MovieValidation", () => {
       director: undefined,
       producer: "",
     };
-    const sut = new MovieValidationPresentation();
+    const sut = new MovieValidation();
     const validation = sut.validate(movie);
     await expect(validation).rejects.toThrowError("Movie is invalid");
   });
