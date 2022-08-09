@@ -1,16 +1,16 @@
 import { HttpRequest } from "@/application/adapters/http-request";
 import { GetMovies } from "@/domain/usecases/get-movies";
-import { Movie } from "@/domain/entities/movie.entity";
 import { MovieValidationPresentation } from "@/main/presentation/validation/movie-validation.presentation";
 import { HttpResponse } from "@/presentation/protocols/httpResponse";
 import { MovieValidation } from "@/presentation/validation/movie-validation";
+import { MovieModel } from "../models/movie-model";
 
 class GetMoviesUseCase implements GetMovies {
   constructor(
     private readonly httpRequest: HttpRequest,
     private readonly validation: MovieValidation
   ) {}
-  async getMovies(): Promise<Movie[]> {
+  async getMovies(): Promise<MovieModel[]> {
     const httpResponse = await this.httpRequest.get("any_url");
     const movies = [];
     httpResponse.body.map((movie) => {

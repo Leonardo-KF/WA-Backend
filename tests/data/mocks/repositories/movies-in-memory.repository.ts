@@ -1,15 +1,15 @@
+import { MovieModel } from "@/data/models/movie-model";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
-import { Movie } from "@/domain/entities/movie.entity";
 
 export class MoviesRepositorySpy implements IMoviesRepository {
-  movies: Movie[] = [];
+  movies: MovieModel[] = [];
 
-  findMovies(skip: number, limit: number): Promise<Movie[]> {
+  findMovies(skip: number, limit: number): Promise<MovieModel[]> {
     const findedMovies = this.movies.slice(skip, limit);
     return Promise.resolve(findedMovies);
   }
 
-  async saveMovie(movie: Movie): Promise<void> {
+  async saveMovie(movie: MovieModel): Promise<void> {
     this.movies.push(movie);
   }
 }

@@ -1,7 +1,7 @@
-import { Movie } from "../../domain/entities/movie.entity";
+import { MovieModel } from "../models/movie-model";
 
 export interface IMoviesRepository {
-  saveMovie(movie: Movie): Promise<void>;
+  saveMovie(movie: MovieModel): Promise<void>;
 
-  findMovies(skip: number, limit: number): Promise<Movie[]>;
+  findMovies(skip: number, limit: number): Promise<MovieModel[]>;
 }

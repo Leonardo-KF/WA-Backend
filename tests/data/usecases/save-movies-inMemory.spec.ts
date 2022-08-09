@@ -1,12 +1,12 @@
 import { SaveMovies } from "@/domain/usecases/save-movies";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
-import { Movie } from "@/domain/entities/movie.entity";
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
+import { MovieModel } from "../models/movie-model";
 
 class SaveMoviesUseCase implements SaveMovies {
   constructor(private readonly repository: IMoviesRepository) {}
 
-  async save(movies: Movie[]): Promise<void> {
+  async save(movies: MovieModel[]): Promise<void> {
     movies.map(async (movie) => {
       await this.repository.saveMovie(movie);
     });
