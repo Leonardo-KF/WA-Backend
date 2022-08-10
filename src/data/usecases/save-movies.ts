@@ -1,7 +1,6 @@
 import { SaveMovies } from "@/domain/usecases/save-movies";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
 import { MovieModel } from "@/data/models/movie-model";
-import { promisify } from "util";
 
 export class SaveMoviesUseCase implements SaveMovies {
   constructor(private readonly repository: IMoviesRepository) {}
