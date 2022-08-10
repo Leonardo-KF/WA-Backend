@@ -16,7 +16,7 @@ export class GetMoviesController implements Controller {
     const count = await this.countMoviesUseCase.execution();
     return {
       statusCode: 200,
-      body: { movies, maxMovies: count },
+      body: { movies: movies, maxMovies: count },
     };
   }
 }
