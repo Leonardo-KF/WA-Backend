@@ -1,6 +1,5 @@
 import { SaveMoviesUseCase } from "@/data/usecases/save-movies";
 import { MoviesValidation } from "@/data/validation/movie-validation";
-import { MoviesRepositoryInMemory } from "@/infra/repositories/movies-repository-in-memory";
 import { MoviesRepositoryMongo } from "@/infra/repositories/movies-repository-mongo";
 import { Controller } from "@/presentation/controllers/Controller";
 import { UpdateMoviesController } from "../presentation/controllers/update-movies-controller";

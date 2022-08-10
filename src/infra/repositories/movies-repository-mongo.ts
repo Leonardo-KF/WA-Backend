@@ -21,6 +21,12 @@ export class MoviesRepositoryMongo implements IMoviesRepository {
     }
   }
 
+  async countMovies(): Promise<number> {
+    const moviesCollection = MongoHelper.getCollection("movies");
+    const count = await moviesCollection.countDocuments();
+    return count;
+  }
+
   async saveMovie(movie: MovieModel): Promise<MovieModel> {
     const moviesCollection = MongoHelper.getCollection("movies");
     const newMovie = await moviesCollection.insertOne(movie);

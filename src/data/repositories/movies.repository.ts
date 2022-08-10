@@ -6,4 +6,6 @@ export interface IMoviesRepository {
   saveMovie(movie: MovieModel): Promise<MovieModel>;
 
   findMovies(skip: number, limit: number): Promise<MovieModel[]>;
+
+  countMovies(): Promise<number>;
 }
