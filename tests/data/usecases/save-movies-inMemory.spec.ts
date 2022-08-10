@@ -1,5 +1,4 @@
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
-import { MovieValidation } from "@/data/validation/movie-validation";
 import { SaveMoviesUseCase } from "@/data/usecases/save-movies";
 
 const MakeSut = (): {
@@ -7,8 +6,8 @@ const MakeSut = (): {
   moviesRepositorySpy: MoviesRepositorySpy;
 } => {
   const moviesRepositorySpy = new MoviesRepositorySpy();
-  const movieValidation = new MovieValidation();
-  const sut = new SaveMoviesUseCase(moviesRepositorySpy, movieValidation);
+
+  const sut = new SaveMoviesUseCase(moviesRepositorySpy);
   return {
     sut,
     moviesRepositorySpy,

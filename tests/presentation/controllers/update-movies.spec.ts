@@ -1,6 +1,6 @@
 import { MoviesRepositorySpy } from "@/tests/data/mocks/repositories/movies-in-memory.repository";
 import { SaveMoviesUseCase } from "@/data/usecases/save-movies";
-import { MovieValidation } from "@/data/validation/movie-validation";
+import { MoviesValidation } from "@/data/validation/movie-validation";
 import { MockGetRequest } from "../requisitions/mockGetData";
 import { UpdateMoviesController } from "@/main/presentation/controllers/update-movies-controller";
 
@@ -11,12 +11,13 @@ const MakeSut = (): {
 } => {
   const moviesRepository = new MoviesRepositorySpy();
   const request = new MockGetRequest();
-  const movieValidation = new MovieValidation();
-  const saveMovieUseCase = new SaveMoviesUseCase(
-    moviesRepository,
-    movieValidation
+  const moviesValidation = new MoviesValidation();
+  const saveMovieUseCase = new SaveMoviesUseCase(moviesRepository);
+  const sut = new UpdateMoviesController(
+    request,
+    saveMovieUseCase,
+    moviesValidation
   );
-  const sut = new UpdateMoviesController(request, saveMovieUseCase);
 
   return {
     sut,
@@ -38,5 +39,16 @@ describe("UpdateMoviesRoute", () => {
     await sut.route();
 
     expect(moviesRepository.movies).toContain(request.movies[10]);
+  });
+  it("should be return bad request if a movie not valid in the request", async () => {
+    const { sut, request } = MakeSut();
+
+    request.movies.push({
+      id: "1",
+      title: "teste film",
+    });
+    const response = await sut.route();
+
+    expect(response.statusCode).toBe(400);
   });
 });

@@ -1,20 +1,24 @@
 import { HttpRequest } from "@/data/adapters/http-request";
 import { SaveMovies } from "@/domain/usecases/save-movies";
+import { IMoviesValidation } from "@/domain/validation/movie-validation";
 import { Controller } from "@/presentation/controllers/Controller";
 import { HttpResponse } from "@/presentation/protocols/httpResponse";
 
 export class UpdateMoviesController implements Controller {
   constructor(
     private readonly httpRequest: HttpRequest,
-    private readonly saveMovieUseCase: SaveMovies
+    private readonly saveMoviesUseCase: SaveMovies,
+    private readonly moviesValidation: IMoviesValidation
   ) {}
 
   async route(): Promise<HttpResponse> {
+    const movies = await this.httpRequest.get(
+      "https://ghibliapi.herokuapp.com/films?fields=id,title,description,producer,director,movie_banner"
+    );
     try {
-      const movies = await this.httpRequest.get(
-        "https://ghibliapi.herokuapp.com/films?fields=id,title,description,producer,director,movie_banner"
-      );
-      const savedMovies = await this.saveMovieUseCase.save(movies.body);
+      await this.moviesValidation.validate(movies.body);
+      const savedMovies = await this.saveMoviesUseCase.save(movies.body);
+
       return {
         statusCode: movies.statusCode,
         body: savedMovies,

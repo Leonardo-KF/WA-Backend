@@ -1,19 +1,18 @@
 import { HttpRequest } from "@/data/adapters/http-request";
 import { GetMovies } from "@/domain/usecases/get-movies";
 import { HttpResponse } from "@/presentation/protocols/httpResponse";
-import { IMovieValidation } from "@/domain/validation/movie-validation";
+import { IMoviesValidation } from "@/domain/validation/movie-validation";
 import { MovieModel } from "@/data/models/movie-model";
-import { MovieValidation } from "@/data/validation/movie-validation";
+import { MoviesValidation } from "@/data/validation/movie-validation";
 
 class GetMoviesUseCase implements GetMovies {
   constructor(
     private readonly httpRequest: HttpRequest,
-    private readonly validation: IMovieValidation
+    private readonly validation: IMoviesValidation
   ) {}
   async getMovies(): Promise<MovieModel[]> {
     const httpResponse = await this.httpRequest.get("any_url");
-    const movies = [];
-    httpResponse.body.map((movie) => {
+    const movies = httpResponse.body.map((movie) => {
       const movieAdapt = {
         id: movie.id,
         title: movie.title,
@@ -22,10 +21,10 @@ class GetMoviesUseCase implements GetMovies {
         director: movie.director,
         producer: movie.producer,
       };
-      this.validation.validate(movieAdapt);
-      movies.push(movieAdapt);
+      return movieAdapt;
     });
-    return movies;
+
+    return await this.validation.validate(movies);
   }
 }
 
@@ -265,7 +264,7 @@ class HttpRequestAdapter implements HttpRequest {
 describe("getMoviesUseCase", () => {
   it("should return a movie list", async () => {
     const request = new HttpRequestAdapter();
-    const validation = new MovieValidation();
+    const validation = new MoviesValidation();
     const getMoviesUseCase = new GetMoviesUseCase(request, validation);
 
     const movies = await getMoviesUseCase.getMovies();
