@@ -12,7 +12,7 @@ export class GetRequest implements HttpRequest {
           id: movie.id,
           title: movie.title,
           banner: movie.movie_banner,
-          // description: movie.description,
+          description: movie.description,
           director: movie.director,
           producer: movie.producer,
         };
