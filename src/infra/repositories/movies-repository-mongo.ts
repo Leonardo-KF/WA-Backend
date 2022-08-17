@@ -1,7 +1,6 @@
 import { MovieModel } from "@/data/models/movie-model";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
 import { MongoHelper } from "../helpers/mongo-helper";
-import { ObjectId } from "mongodb";
 
 export class MoviesRepositoryMongo implements IMoviesRepository {
   async findAndUpdateMovie(movie: MovieModel): Promise<MovieModel | undefined> {
@@ -38,11 +37,8 @@ export class MoviesRepositoryMongo implements IMoviesRepository {
 
   async findMovies(skip: number, limit: number): Promise<MovieModel[]> {
     const moviesCollection = MongoHelper.getCollection("movies");
-    const movies = await moviesCollection
-      .find()
-      .skip(skip)
-      .limit(limit)
-      .toArray();
+    const movies = await moviesCollection.find().skip(skip).limit(10).toArray();
+    console.log(skip, limit, movies.length);
     return MongoHelper.mapCollection(movies);
   }
 }

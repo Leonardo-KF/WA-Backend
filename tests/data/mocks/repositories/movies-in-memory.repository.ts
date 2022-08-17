@@ -2,6 +2,9 @@ import { MovieModel } from "@/data/models/movie-model";
 import { IMoviesRepository } from "@/data/repositories/movies.repository";
 
 export class MoviesRepositorySpy implements IMoviesRepository {
+  async countMovies(): Promise<number> {
+    return this.movies.length;
+  }
   movies: MovieModel[] = [];
 
   async findAndUpdateMovie(

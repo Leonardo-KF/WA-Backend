@@ -4,6 +4,10 @@ import { IMoviesRepository } from "@/data/repositories/movies.repository";
 export class MoviesRepositoryInMemory implements IMoviesRepository {
   movies: MovieModel[] = [];
 
+  async countMovies(): Promise<number> {
+    return this.movies.length;
+  }
+
   async findAndUpdateMovie(
     movieUpdated: MovieModel
   ): Promise<MovieModel | undefined> {
