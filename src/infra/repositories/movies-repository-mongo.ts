@@ -37,8 +37,11 @@ export class MoviesRepositoryMongo implements IMoviesRepository {
 
   async findMovies(skip: number, limit: number): Promise<MovieModel[]> {
     const moviesCollection = MongoHelper.getCollection("movies");
+    if (skip < 0) {
+      throw new Error("skip must be greater than zero");
+    }
     const movies = await moviesCollection.find().skip(skip).limit(10).toArray();
-    console.log(skip, limit, movies.length);
+
     return MongoHelper.mapCollection(movies);
   }
 }

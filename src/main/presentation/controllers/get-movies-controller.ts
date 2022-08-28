@@ -11,12 +11,17 @@ export class GetMoviesController implements Controller {
   ) {}
 
   async route(req: HttpRequest): Promise<HttpResponse> {
-    const page = parseInt(req.params);
-    const movies = await this.findMoviesUseCase.execution(page, 10);
-    const count = await this.countMoviesUseCase.execution();
-    return {
-      statusCode: 200,
-      body: { movies: movies, maxMovies: count },
-    };
+    try {
+      const page = parseInt(req.params);
+      const movies = await this.findMoviesUseCase.execution(page, 10);
+      const count = await this.countMoviesUseCase.execution();
+      return {
+        statusCode: 200,
+        body: { movies: movies, maxMovies: count },
+      };
+    } catch (e) {
+      console.log(e);
+      return { statusCode: 400, body: { error: e.message } };
+    }
   }
 }
