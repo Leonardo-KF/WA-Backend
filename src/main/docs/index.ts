@@ -13,6 +13,10 @@ export default {
       url: "http://localhost:3333/movies",
       description: "Local server",
     },
+    {
+      url: "https://wa-backend-production.up.railway.app/movies",
+      description: "Production server",
+    },
   ],
   paths,
   schemas,
