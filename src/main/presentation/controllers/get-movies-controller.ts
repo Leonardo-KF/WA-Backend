@@ -1,6 +1,6 @@
 import { CountMovies } from "@/domain/usecases/count-movies";
 import { FindMovies } from "@/domain/usecases/find-movies";
-import { Controller } from "@/presentation/controllers/controller";
+import { Controller } from "../../../presentation/controllers/controller";
 import { HttpRequest } from "@/presentation/protocols/httpRequest";
 import { HttpResponse } from "@/presentation/protocols/httpResponse";
 

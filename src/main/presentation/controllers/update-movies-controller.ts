@@ -1,7 +1,7 @@
 import { HttpRequest } from "@/data/adapters/http-request";
 import { SaveMovies } from "@/domain/usecases/save-movies";
 import { IMoviesValidation } from "@/domain/validation/movie-validation";
-import { Controller } from "@/presentation/controllers/Controller";
+import { Controller } from "../../../presentation/controllers/controller";
 import { HttpResponse } from "@/presentation/protocols/httpResponse";
 
 export class UpdateMoviesController implements Controller {
