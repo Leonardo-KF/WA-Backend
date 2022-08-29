@@ -1,7 +1,8 @@
 # WA-Backend
 
 - Intruções para executar
-  Vá até a pasta onde deseja salva-lo em seu computador, abra o terminal nessa pasta e use o comando:
+
+Vá até a pasta onde deseja salva-lo em seu computador, abra o terminal nessa pasta e use o comando:
 
 ```
 git clone https://github.com/Leonardo-KF/WA-Backend.git
